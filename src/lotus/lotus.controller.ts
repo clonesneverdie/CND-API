@@ -6,7 +6,7 @@ export class LotusController {
   constructor(private lotusService: LotusService) {
     setInterval(() => {
       this.lotusService.getLotusInfo();
-    }, 60000);
+    }, 600000);
   }
 
   @Get('/owners')

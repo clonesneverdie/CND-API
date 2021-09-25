@@ -10,19 +10,11 @@ const lotusContract = new ethers.Contract(LotusCA, LotusABI, provider);
 
 @Injectable()
 export class LotusService {
-  private lotusCount;
   private lotusOwners;
   private lotusOwnerList = [];
   private lotusList = [];
 
   async getLotusOwners() {
-    const lotusCountHex = await lotusContract.lotusCount();
-    const lotusCount = parseInt(lotusCountHex._hex);
-    if (this.lotusCount !== lotusCount) {
-      await this.getLotusInfo();
-      this.lotusOwners = this.lotusOwnerList.length;
-      return { owners: this.lotusOwners };
-    }
     this.lotusOwners = this.lotusOwnerList.length;
     return { owners: this.lotusOwners };
   }
@@ -32,12 +24,10 @@ export class LotusService {
   }
 
   async getLotusInfo() {
-    const lotusCountHex = await lotusContract.lotusCount();
-    const lotusCount = parseInt(lotusCountHex._hex);
-    this.lotusCount = lotusCount;
-
     const ownerList = [];
     const allLotuses = [];
+    const lotusCountHex = await lotusContract.lotusCount();
+    const lotusCount = parseInt(lotusCountHex._hex);
 
     for (let i = 1; i < lotusCount; i++) {
       const arr = await lotusContract.lotuses(i);

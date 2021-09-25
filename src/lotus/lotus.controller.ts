@@ -4,7 +4,9 @@ import { LotusService } from './lotus.service';
 @Controller('lotus')
 export class LotusController {
   constructor(private lotusService: LotusService) {
-    this.lotusService.getLotusInfo();
+    setInterval(() => {
+      this.lotusService.getLotusInfo();
+    }, 60000);
   }
 
   @Get('/owners')
